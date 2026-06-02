@@ -46,7 +46,7 @@ export function VoiceRecorder({ userId, onSuccess }: Props) {
   }
 
   async function stopRecording() {
-    const blob = recorderRef.current.stop()
+    const blob = await recorderRef.current.stop()
     setStatus('uploading')
     setAnalyser(null)
 
