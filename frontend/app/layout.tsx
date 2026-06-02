@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Lora, DM_Sans } from 'next/font/google'
+import { BottomNav } from '@/components/layout/BottomNav'
 import './globals.css'
 
 const lora = Lora({
@@ -28,8 +29,9 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${lora.variable} ${dmSans.variable} h-full`}>
-      <body className="min-h-full bg-[#0D0A12] text-[#F0EAE0] font-sans antialiased">
+      <body className="min-h-full bg-[#0D0A12] text-[#F0EAE0] font-sans antialiased pb-20">
         {children}
+        <BottomNav />
       </body>
     </html>
   )
