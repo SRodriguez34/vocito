@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { VoiceRecorder } from '@/components/voice/VoiceRecorder'
 import { VoiceProfileCard } from '@/components/voice/VoiceProfileCard'
@@ -20,6 +21,7 @@ const storyReveal = {
 }
 
 export default function RecordPage() {
+  const router = useRouter()
   const [userId, setUserId] = useState<string | null>(null)
   const [profiles, setProfiles] = useState<VoiceProfile[]>([])
   const [loadingProfiles, setLoadingProfiles] = useState(true)
@@ -27,9 +29,10 @@ export default function RecordPage() {
   useEffect(() => {
     const supabase = createClient()
     supabase.auth.getUser().then(({ data }) => {
-      setUserId(data.user?.id ?? null)
+      if (!data.user) { router.replace('/login'); return }
+      setUserId(data.user.id)
     })
-  }, [])
+  }, [router])
 
   useEffect(() => {
     if (!userId) return
@@ -60,8 +63,8 @@ export default function RecordPage() {
 
   if (!userId) {
     return (
-      <main className="min-h-screen bg-[#0D0A12] flex items-center justify-center px-4">
-        <p className="text-[#8A7FA0]">Inicia sesion para continuar.</p>
+      <main className="min-h-screen bg-[#0D0A12] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#C4A35A] border-t-transparent rounded-full animate-spin" />
       </main>
     )
   }

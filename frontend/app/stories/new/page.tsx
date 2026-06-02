@@ -32,7 +32,7 @@ export default function NewStoryPage() {
   useEffect(() => {
     const supabase = createClient()
     supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) { router.push('/') ; return }
+      if (!data.user) { router.replace('/login'); return }
       setUserId(data.user.id)
     })
   }, [router])

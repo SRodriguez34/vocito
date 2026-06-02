@@ -12,6 +12,7 @@ export default function Home() {
     const supabase = createClient()
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) router.replace('/record')
+      else router.replace('/login')
     })
   }, [router])
 
