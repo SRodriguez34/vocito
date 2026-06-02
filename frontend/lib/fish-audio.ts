@@ -39,6 +39,9 @@ export async function synthesize(text: string, voiceId: string): Promise<ArrayBu
     }),
   })
 
-  if (!res.ok) throw new Error(`Fish Audio TTS failed: ${res.status}`)
+  if (!res.ok) {
+    const body = await res.text()
+    throw new Error(`Fish Audio TTS failed: ${res.status} — ${body}`)
+  }
   return res.arrayBuffer()
 }
