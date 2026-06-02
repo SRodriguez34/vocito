@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Next.js
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+frontend/tsconfig.tsbuildinfo
+
+# Environment (NUNCA commitear — contiene secrets)
+frontend/.env.local
+frontend/.env*.local
+.env.local
+.env*.local
+
+# Build outputs
+frontend/build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Supabase local
+supabase/.temp/
