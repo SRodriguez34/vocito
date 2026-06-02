@@ -5,6 +5,7 @@ export async function cloneVoice(audioBlob: Blob, name: string): Promise<string>
   const form = new FormData()
   form.append('visibility', 'private')
   form.append('type', 'tts')
+  form.append('train_mode', 'fast')
   form.append('title', name)
   form.append('voices', audioBlob, 'reference.wav')
 
@@ -14,7 +15,10 @@ export async function cloneVoice(audioBlob: Blob, name: string): Promise<string>
     body: form,
   })
 
-  if (!res.ok) throw new Error(`Fish Audio clone failed: ${res.status}`)
+  if (!res.ok) {
+    const body = await res.text()
+    throw new Error(`Fish Audio clone failed: ${res.status} — ${body}`)
+  }
   const data = await res.json()
   return data._id as string
 }
